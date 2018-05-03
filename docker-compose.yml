@@ -23,7 +23,7 @@ services:
     - internal
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ci_jenkins:/var/lib/jenkins/
+    - ci-jenkins:/var/lib/jenkins/
 
 # https://github.com/sonatype/docker-nexus3
 # https://hub.docker.com/r/sonatype/nexus3/
