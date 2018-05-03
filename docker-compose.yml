@@ -1,34 +1,33 @@
-version: '2'
+version: '3'
 
 networks:
-  prodnetwork:
-    driver: bridge
+  internal:
 
 volumes:
-  ci-training_jenkins:
-    driver: local
-  ci-training_maven:
-    driver: local
-  ci-training_nexus:
-    driver: local
-  ci-training_gitbucket:
-    driver: local
-  ci-training_svnhome:
-    driver: local
-  ci-training_svnconfig:
-    driver: local
-  ci-training_gitlab_config:
-    driver: local
-  ci-training_gitlab_data:
-    driver: local
-  ci-training_gitlab_log:
-    driver: local
+  ci-jenkins:
+  ci-maven:
+  ci-nexus:
+  ci-gogs:
 
 services:
+ ci-jenkins:
+  build: ./jenkins
+  ports:
+    - "30080:8080"
+  depends_on:
+    - ci-nexus
+    - ci-gogs
+  environment:
+    - NEXUS_PORT=8081
+  networks:
+    - internal
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ci-training_jenkins:/var/lib/jenkins/
 
 # https://github.com/sonatype/docker-nexus3
 # https://hub.docker.com/r/sonatype/nexus3/
- ci-training_nexus:
+ ci-nexus:
   image: sonatype/nexus3
   ports:
     - "30081:8081"
@@ -36,65 +35,19 @@ services:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
   volumes:
-    - ci-training_nexus:/nexus-data
+    - ci-nexus:/nexus-data
   networks:
-    - prodnetwork
+    - internal
 
- ci-training_jenkins:
-  build: ./jenkins
+
+
+# https://github.com/gogits/gogs/tree/master/docker
+# https://hub.docker.com/r/gogs/gogs/
+ ci-gogs:
+  build: ./gogs
   ports:
-    - "30080:8080"
-  networks:
-    - prodnetwork
+    - "30082:8080" # TODO Move to 8082
   volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-    - ci-training_jenkins:/var/lib/jenkins/
-  depends_on:
-    - ci-training_nexus
-    - ci-training_gitbucket
-#    - sonar
-  environment:
-    - NEXUS_PORT=8081
-
-
-# https://github.com/f99aq8ove/docker-gitbucket
-# https://hub.docker.com/r/f99aq8ove/gitbucket/
- ci-training_gitbucket:
-  image: f99aq8ove/gitbucket:latest
-  restart: always
+    - ci-gogs:/data
   networks:
-    - prodnetwork
-  ports:
-    - "30082:8080"
-    - "30022:30022"
-  volumes:
-    - ci-training_gitbucket:/gitbucket
-
- ci-training_svn:
-  build: ./subversion
-  restart: always
-  networks:
-    - prodnetwork
-  ports:
-    - "30083:80"
-  volumes:
-    - ci-training_svnhome:/var/lib/svn
-    - ci-training_svnconfig:/etc/apache2/dav_svn
-
-# Standard Gitlab image, config now yet static
-# HTTPS config (also for proxy mode): https://docs.gitlab.com/omnibus/settings/nginx.html#enable-https
- ci-training_gitlab:
-  image: gitlab/gitlab-ce:latest
-  restart: always
-  networks:
-    - prodnetwork
-  environment:
-    GITLAB_OMNIBUS_CONFIG: |
-      gitlab_rails['gitlab_shell_ssh_port'] = 30222
-  ports:
-    - "30084:80"
-    - "30222:22"
-  volumes:
-    - ci-training_gitlab_config:/etc/gitlab
-    - ci-training_gitlab_data:/var/log/gitlab
-    - ci-training_gitlab_log:/var/opt/gitlab
+    - internal
