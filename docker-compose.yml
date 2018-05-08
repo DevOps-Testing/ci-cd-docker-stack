@@ -51,3 +51,10 @@ services:
     - ci-gogs:/data
   networks:
     - internal
+
+ ci-gogs-sqlite:
+  build: ./gogs/sqlite
+  volumes:
+    - ci-gogs-sqlite:/data
+  networks:
+    - internal

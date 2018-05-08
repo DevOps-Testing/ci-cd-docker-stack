@@ -1,4 +1,4 @@
-Dieser Ordner stammt von https://github.com/DevOps-Testing/ci-cd-docker-stack/tree/master/jenkins (MIT, René Gielen) und https://github.com/rgielen/jenkins-training-docker (Apache-2.0, René Gielen) ab. Diese beiden Repros wurden zusammgeführt und an den persönlichen Gebrauch angepasst (z.B. Passwörter geändert). Nachfolgend die beiden Lizenzen.
+Dieser Ordner stammt von https://github.com/DevOps-Testing/ci-cd-docker-stack/tree/master/jenkins (MIT, René Gielen) und https://github.com/rgielen/jenkins-training-docker (Apache-2.0, René Gielen) ab. Diese beiden Repros wurden zusammengeführt und an den persönlichen Gebrauch angepasst (z.B. Passwörter geändert). Auch wurden JENKINS_HOME's Inhalte gelöscht. Nachfolgend die beiden Lizenzen.
 
 The MIT License (MIT)
 
