@@ -5,15 +5,18 @@ networks:
 
 volumes:
   ci-jenkins:
-  ci-maven:
+  ci-maven-local-repo:
   ci-nexus:
   ci-gogs:
+
 
 services:
  ci-jenkins:
   build: ./jenkins
+  image: ci-jenkins:latest
   ports:
     - "30080:8080"
+   #- "50000:50000" JNLP not needed
   depends_on:
     - ci-nexus
     - ci-gogs
@@ -24,11 +27,13 @@ services:
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - ci-jenkins:/var/lib/jenkins/
+    - ci-maven-local-repo:/home/jenkins/.m2 # TODO Geht?
 
 # https://github.com/sonatype/docker-nexus3
 # https://hub.docker.com/r/sonatype/nexus3/
  ci-nexus:
-  image: sonatype/nexus3
+  build: ./nexus
+  image: ci-nexus:latest
   ports:
     - "30081:8081"
   environment:
@@ -45,6 +50,7 @@ services:
 # https://hub.docker.com/r/gogs/gogs/
  ci-gogs:
   build: ./gogs
+  image: ci-gogs:latest
   ports:
     - "30082:3000" # TODO Move to 8082
   volumes:
