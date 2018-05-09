@@ -8,7 +8,6 @@ volumes:
   ci-maven:
   ci-nexus:
   ci-gogs:
-  ci-gogs-sqlite:
 
 services:
  ci-jenkins:
@@ -48,16 +47,7 @@ services:
   build: ./gogs
   ports:
     - "30082:3000" # TODO Move to 8082
-  depends_on:
-    - ci-gogs-sqlite
   volumes:
     - ci-gogs:/var/gogs
-  networks:
-    - internal
-
- ci-gogs-sqlite:
-  build: ./gogs/sqlite
-  volumes:
-    - ci-gogs-sqlite:/data
   networks:
     - internal
