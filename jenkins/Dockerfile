@@ -26,7 +26,7 @@ ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
 ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
 ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
 
-ADD ssl/ca.csr /usr/local/share/ca-certificates/
+ADD ssl/CICD.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 
 # basic conf
