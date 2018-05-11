@@ -52,7 +52,7 @@ services:
   build: ./gogs
   image: ci-gogs:latest
   ports:
-    - "30082:3000" # TODO Move to 8082
+    - "30082:8082"
   volumes:
     - ci-gogs:/data
   networks:
