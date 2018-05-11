@@ -1,0 +1,18 @@
+#
+# SSL Zertifikate
+#
+
+# CA erzeugen
+openssl req -new -x509 -keyout ca.key -out ca.csr -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=CA/CN=CICD"
+openssl x509 -in ca.csr -noout -text // Anzeigen
+
+# Zertikat erzeugen
+openssl req -new -keyout https.key -out https.csr -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=Gogs/CN=CICD"
+openssl req -in https.csr -noout -text
+
+# Signieren durch CA
+openssl x509 -req -in https.csr -CA ca.csr -CAkey ca.key -CAcreateserial -out https.pub -days 3650
+openssl x509 -in https.pub -noout -text
+
+#
+# eof ..

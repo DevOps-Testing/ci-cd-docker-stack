@@ -4,10 +4,11 @@ ARG user=jenkins
 ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
-ARG gid_docker=600 # TODO Nicht die richtige GID docker = 1001
+# TODO Nicht die richtige GID docker = 1001
+ARG gid_docker=1001
 
 USER root
-RUN apt-get update && apt-get install -y apt-utils sudo \
+RUN apt-get update && apt-get install -y apt-utils sudo ca-certificates ca-certificates-java \
       && groupadd -g ${gid_docker} docker \
       && usermod -aG docker ${user} \
       && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers \
@@ -19,6 +20,14 @@ RUN apt-get update && apt-get install -y apt-utils sudo \
 ENV MAVEN_VERSION 3.5.3
 RUN cd /usr/local; wget -q -O - http://ftp.fau.de/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xvfz - && \
     ln -sv /usr/local/apache-maven-$MAVEN_VERSION /usr/local/maven
+
+# https
+ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
+ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
+ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
+
+ADD ssl/ca.csr /usr/local/share/ca-certificates/
+RUN update-ca-certificates
 
 # basic conf
 USER ${user}
