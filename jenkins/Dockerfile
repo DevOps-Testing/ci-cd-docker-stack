@@ -2,10 +2,10 @@ FROM jenkins/jenkins:lts
 
 ARG user=jenkins
 ARG group=jenkins
-ARG uid=1001
+ARG uid=1000
 ARG gid=1000
 # TODO Nicht die richtige GID docker = 1001
-ARG gid_docker=1001
+ARG gid_docker=600
 
 USER root
 RUN apt-get update && apt-get install -y apt-utils sudo ca-certificates ca-certificates-java \
