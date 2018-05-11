@@ -21,14 +21,6 @@ ENV MAVEN_VERSION 3.5.3
 RUN cd /usr/local; wget -q -O - http://ftp.fau.de/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xvfz - && \
     ln -sv /usr/local/apache-maven-$MAVEN_VERSION /usr/local/maven
 
-# https
-ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
-ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
-#ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
-
-ADD ssl/CICD.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
-
 # basic conf
 USER ${user}
 ADD jenkins_home /usr/share/jenkins/ref
@@ -36,6 +28,16 @@ ADD jenkins_home /usr/share/jenkins/ref
 # Fix
 USER root
 RUN chown -R jenkins:jenkins /usr/share/jenkins/ref
+
+# https
+USER ${user}
+ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
+ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
+ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
+
+ADD ssl/CICD.crt /usr/local/share/ca-certificates/
+USER root
+RUN update-ca-certificates
 
 # plugins
 USER ${user}
