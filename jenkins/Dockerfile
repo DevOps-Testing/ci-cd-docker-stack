@@ -33,7 +33,7 @@ RUN chown -R jenkins:jenkins /usr/share/jenkins/ref
 USER ${user}
 ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
 ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
-ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
+# ENV JENKINS_OPTS --httpPort=-1 --httpsPort=8080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
 
 USER root
 RUN chown -R jenkins:jenkins /var/lib/jenkins
