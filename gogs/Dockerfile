@@ -7,4 +7,7 @@ FROM gogs/gogs
 
 # SQL
 RUN apk add --update sqlite
-RUN mkdir -p /data/sql/
+
+# https
+ADD ssl/Gogs.csr /etc/cert/Gogs.csr
+ADD ssl/Gogs.key /etc/cert/Gogs.key
