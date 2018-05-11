@@ -1,0 +1,45 @@
+2018/05/11 06:29:20 [TRACE] Log Mode: File (Trace)
+2018/05/11 06:29:20 [ INFO] Gogs 0.11.48.0426
+2018/05/11 06:29:20 [ INFO] Cache Service Enabled
+2018/05/11 06:29:20 [ INFO] Session Service Enabled
+2018/05/11 06:29:20 [ INFO] Git Version: 2.11.3
+2018/05/11 06:29:20 [ INFO] Git config user.name set to Gogs
+2018/05/11 06:29:20 [ INFO] Git config user.email set to gogs@fake.local
+2018/05/11 06:29:20 [ INFO] SQLite3 Supported
+2018/05/11 06:29:20 [ INFO] Run Mode: Production
+2018/05/11 06:29:20 [TRACE] Doing: CheckRepoStats
+2018/05/11 06:29:20 [ INFO] First-time run install finished!
+2018/05/11 06:29:50 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:29:50 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:29:50 [TRACE] Template: user/dashboard/dashboard
+2018/05/11 06:30:01 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:30:01 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:30:01 [TRACE] Template: status/404
+2018/05/11 06:32:09 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:09 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:09 [TRACE] Template: user/dashboard/dashboard
+2018/05/11 06:32:13 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:13 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:13 [TRACE] Template: org/create
+2018/05/11 06:32:17 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:17 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:17 [ INFO] New random avatar created: 2
+2018/05/11 06:32:17 [TRACE] Organization created: CICD
+2018/05/11 06:32:17 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:17 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:17 [TRACE] Template: user/dashboard/dashboard
+2018/05/11 06:32:27 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:27 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:27 [TRACE] Template: repo/migrate
+2018/05/11 06:32:37 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:37 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:37 [TRACE] Template: repo/create
+2018/05/11 06:32:58 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:58 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:58 [TRACE] Repository created [1]: CICD/Example
+2018/05/11 06:32:58 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:32:58 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:32:58 [TRACE] Template: repo/home
+2018/05/11 06:33:00 [TRACE] Session ID: 8db66971c67849dc
+2018/05/11 06:33:00 [TRACE] CSRF Token: ziW2sFqOTlFn0vatkaRE-CpyNn46MTUyNjAyMDE5MDY3NjM0NzM4Nw==
+2018/05/11 06:33:00 [TRACE] Template: org/home
