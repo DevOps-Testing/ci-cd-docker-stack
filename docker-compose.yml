@@ -52,7 +52,7 @@ services:
   build: ./gogs
   image: ci-gogs:latest
   ports:
-    - "30082:8082"
+    - "30082:8083"
   volumes:
     - ci-gogs:/data
   networks:
