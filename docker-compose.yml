@@ -54,6 +54,6 @@ services:
   ports:
     - "30082:3000" # TODO Move to 8082
   volumes:
-    - ci-gogs:/var/gogs
+    - ci-gogs:/data
   networks:
     - internal
