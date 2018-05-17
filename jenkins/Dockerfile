@@ -24,10 +24,10 @@ ADD jenkins_home /usr/share/jenkins/ref
 ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
 ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
 #ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
-ENV JENKINS_OPTS --httpPort=30080
 
-ADD ssl/CICD.crt /usr/local/share/ca-certificates/
 USER root
+RUN chown -R ${user}:${group} /var/lib/jenkins/
+ADD ssl/CICD.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 USER ${user}
 
