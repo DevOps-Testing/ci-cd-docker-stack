@@ -6,7 +6,7 @@ ARG gid_docker=600
 
 USER root
 RUN apt-get update
-RUN apt-get install -y apt-transport-https apt-utils sudo ca-certificates ca-certificates-java curl gnupg2 software-properties-common
+RUN apt-get install -y apt-transport-https apt-utils sudo ca-certificates ca-certificates-java curl gnupg2 software-properties-common vim net-tools
 RUN groupadd -g ${gid_docker} docker && usermod -aG docker ${user}
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
@@ -16,20 +16,18 @@ RUN apt-get update && apt-get install -y docker-ce docker-compose
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
+# https
+ADD ssl/Jenkins.crt /usr/local/etc/jenkins/Jenkins.crt
+ADD ssl/Jenkins.key /usr/local/etc/jenkins/Jenkins.key
+ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsCertificate=/usr/local/etc/jenkins/Jenkins.crt --httpsPrivateKey=/usr/local/etc/jenkins/Jenkins.key
+RUN chown -R ${user}:${group} /usr/local/etc/jenkins/
+
+#ADD ssl/CICD.crt /usr/local/share/ca-certificates/
+#RUN update-ca-certificates
+
 # basic conf
 USER ${user}
 ADD jenkins_home /usr/share/jenkins/ref
-
-# https
-ADD ssl/Jenkins.csr /var/lib/jenkins/Jenkins.csr
-ADD ssl/Jenkins.key /var/lib/jenkins/Jenkins.key
-ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsCertificate=/var/lib/jenkins/Jenkins.csr --httpsPrivateKey=/var/lib/jenkins/Jenkins.key
-
-USER root
-RUN chown -R ${user}:${group} /var/lib/jenkins/
-ADD ssl/CICD.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
-USER ${user}
 
 # plugins
 # RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt

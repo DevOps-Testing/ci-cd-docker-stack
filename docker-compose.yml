@@ -25,7 +25,7 @@ services:
    #- "50000:50000" JNLP not needed
   depends_on:
     #- ci-nexus
-    - ci-gogs
+    #- ci-gogs
   environment:
     - NEXUS_PORT=8081
   networks:
@@ -56,14 +56,14 @@ services:
 
 # https://github.com/gogits/gogs/tree/master/docker
 # https://hub.docker.com/r/gogs/gogs/
- ci-gogs:
-  build: ./gogs
-  image: ci-gogs:latest
-  hostname: gogs
-  ports:
-    - "30082:30082"
-  volumes:
-    - ci-gogs:/data
-  networks:
-    internal:
-      ipv4_address: 172.16.238.12
+# ci-gogs:
+#  build: ./gogs
+#  image: ci-gogs:latest
+#  hostname: gogs
+#  ports:
+#    - "30082:30082"
+#  volumes:
+#    - ci-gogs:/data
+#  networks:
+#    internal:
+#      ipv4_address: 172.16.238.12
