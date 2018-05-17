@@ -23,9 +23,9 @@ services:
   ports:
     - "30080:30080"
    #- "50000:50000" JNLP not needed
-  depends_on:
-    #- ci-nexus
-    #- ci-gogs
+#  depends_on:
+#    - ci-nexus
+#    - ci-gogs
   environment:
     - NEXUS_PORT=8081
   networks:
