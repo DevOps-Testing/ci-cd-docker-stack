@@ -10,7 +10,7 @@ RUN apt-get install -y apt-transport-https apt-utils sudo ca-certificates ca-cer
 RUN groupadd -g ${gid_docker} docker && usermod -aG docker ${user}
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add –
+RUN wget https://download.docker.com/linux/debian/gpg -O /tmp/gpg && apt-key add /tmp/gpg
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install docker-ce && docker-compose
 
