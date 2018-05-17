@@ -2,10 +2,14 @@ version: '2'
 
 networks:
   internal:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
 
 volumes:
   ci-jenkins:
-  ci-maven-local-repo:
   ci-nexus:
   ci-gogs:
 
@@ -14,8 +18,9 @@ services:
  ci-jenkins:
   build: ./jenkins
   image: ci-jenkins:latest
+  hostname: jenkins
   ports:
-    - "30080:8080"
+    - "30080:30080"
    #- "50000:50000" JNLP not needed
   depends_on:
     - ci-nexus
@@ -23,26 +28,28 @@ services:
   environment:
     - NEXUS_PORT=8081
   networks:
-    - internal
+    internal:
+      ipv4_address: 172.16.238.10
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ci-jenkins:/var/lib/jenkins/
-    - ci-maven-local-repo:/home/jenkins/.m2 # TODO Geht?
+    - ci-jenkins:/var/jenkins_home/
 
 # https://github.com/sonatype/docker-nexus3
 # https://hub.docker.com/r/sonatype/nexus3/
  ci-nexus:
   build: ./nexus
   image: ci-nexus:latest
+  hostname: nexus
   ports:
-    - "30081:8081"
+    - "30081:8081" # TODO Port ändern
   environment:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
   volumes:
-    - ci-nexus:/nexus-data
+    - ci-nexus:/nexus-data # TODO Stimmt das?
   networks:
-    - internal
+    internal:
+      ipv4_address: 172.16.238.11
 
 
 
@@ -51,9 +58,11 @@ services:
  ci-gogs:
   build: ./gogs
   image: ci-gogs:latest
+  hostname: gogs
   ports:
-    - "30082:8083"
+    - "30082:30082"
   volumes:
     - ci-gogs:/data
   networks:
-    - internal
+    internal:
+      ipv4_address: 172.16.238.12
