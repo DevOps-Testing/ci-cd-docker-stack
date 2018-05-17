@@ -32,7 +32,7 @@ RUN update-ca-certificates
 USER ${user}
 
 # plugins
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+# RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # tell Jenkins that no banner prompt for pipeline plugins is needed
 # see: https://github.com/jenkinsci/docker#preinstalling-plugins
