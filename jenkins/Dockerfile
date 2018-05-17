@@ -17,9 +17,8 @@ RUN apt-get update && apt-get install -y docker-ce docker-compose
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 # https
-ADD ssl/Jenkins.crt /usr/local/etc/jenkins/Jenkins.crt
-ADD ssl/Jenkins.key /usr/local/etc/jenkins/Jenkins.key
-ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsCertificate=/usr/local/etc/jenkins/Jenkins.crt --httpsPrivateKey=/usr/local/etc/jenkins/Jenkins.key
+ADD ssl/Jenkins.jks /usr/local/etc/jenkins/Jenkins.jks
+ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsKeyStore="/usr/local/etc/jenkins/Jenkins.jks" --httpsKeyStorePassword="changeit"
 RUN chown -R ${user}:${group} /usr/local/etc/jenkins/
 
 #ADD ssl/CICD.crt /usr/local/share/ca-certificates/
