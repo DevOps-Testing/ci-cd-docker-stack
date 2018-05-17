@@ -5,6 +5,7 @@ ARG group=jenkins
 ARG gid_docker=600
 
 USER root
+RUN apt-get update
 RUN apt-get install -y apt-transport-https apt-utils sudo ca-certificates ca-certificates-java curl gnupg2 software-properties-common
 RUN groupadd -g ${gid_docker} docker && usermod -aG docker ${user}
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
