@@ -42,8 +42,8 @@ services:
   image: ci-nexus:latest
   hostname: nexus
   ports:
-    - "30084:8080" # HTTP
-    - "30081:30081" # HTTPS
+    - "30081:8081" # HTTP
+    #- "30081:30081" # HTTPS
   environment:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
