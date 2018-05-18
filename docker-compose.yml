@@ -47,7 +47,7 @@ services:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
   volumes:
-    - ci-nexus:/nexus-data # TODO Stimmt das?
+    - ci-nexus:/nexus-data
   networks:
     internal:
       ipv4_address: 172.16.238.11
