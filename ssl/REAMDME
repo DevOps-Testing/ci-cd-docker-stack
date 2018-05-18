@@ -14,5 +14,8 @@ openssl req -in https.csr -noout -text
 openssl x509 -req -in https.csr -CA CICD.crt -CAkey CICD.key -CAcreateserial -out https.crt -days 3650
 openssl x509 -in https.crt -noout -text
 
+# Java Keystore export
+openssl pkcs12 -export -chain -CAfile CICD.crt -in Jenkins.crt -inkey Jenkins.key -out Jenkins.jks  -passout pass:changeit
+
 #
 # eof ..
