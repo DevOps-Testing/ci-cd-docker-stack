@@ -21,7 +21,6 @@ services:
   image: ci-jenkins:latest
   hostname: jenkins
   ports:
-    - "8080:8080"
     - "30080:30080"
    #- "50000:50000" JNLP not needed
 #  depends_on:
