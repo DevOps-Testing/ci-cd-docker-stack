@@ -37,20 +37,20 @@ services:
 
 # https://github.com/sonatype/docker-nexus3
 # https://hub.docker.com/r/sonatype/nexus3/
-# ci-nexus:
-#  build: ./nexus
-#  image: ci-nexus:latest
-#  hostname: nexus
-#  ports:
-#    - "30081:8081" # TODO Port ändern
-#  environment:
-#    - JAVA_MIN_MEM=256m
-#    - JAVA_MAX_MEM=1200m
-#  volumes:
-#    - ci-nexus:/nexus-data # TODO Stimmt das?
-#  networks:
-#    internal:
-#      ipv4_address: 172.16.238.11
+ ci-nexus:
+  build: ./nexus
+  image: ci-nexus:latest
+  hostname: nexus
+  ports:
+    - "30081:8081" # TODO Port ändern
+  environment:
+    - JAVA_MIN_MEM=256m
+    - JAVA_MAX_MEM=1200m
+  volumes:
+    - ci-nexus:/nexus-data # TODO Stimmt das?
+  networks:
+    internal:
+      ipv4_address: 172.16.238.11
 
 
 
