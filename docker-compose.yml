@@ -71,4 +71,5 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.12
-      aliases: gogs
+      aliases:
+      - gogs
