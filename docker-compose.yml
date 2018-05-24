@@ -32,7 +32,8 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.10
-      network-alias: jenkins
+      aliases:
+      - jenkins
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - ci-jenkins:/var/jenkins_home/
@@ -54,7 +55,8 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.11
-      network-alias: nexus
+      aliases:
+      - nexus
 
 # https://github.com/gogits/gogs/tree/master/docker
 # https://hub.docker.com/r/gogs/gogs/
@@ -69,4 +71,4 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.12
-      network-alias: gogs
+      aliases: gogs
