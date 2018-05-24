@@ -1,0 +1,109 @@
+#!/bin/bash
+#
+
+usage() {
+    cat <<HELP_USAGE
+NAME
+       Certificate helper
+
+SYNOPSIS
+       $0 -tn <ToolName> -cn <CommonName> -ip <InternalIP> [-ca <CertificateAuthority>]
+
+DESCRIPTION
+       Erzeugt ein durch die CA signiertes https Zertifkat.
+
+OPTIONS
+       Certificate helper accepts the following options:
+
+       -ca, --certificateAuthority
+               <description>
+       -cn, --commonNamen
+               <description>
+       -h,  --help
+              <description>
+       -ip, --internalIP
+               <description>
+       -tn, --toolName
+               <description>
+HELP_USAGE
+}
+
+# No root
+if [[ $UID == 0 ]]; then 
+    echo "This script shouldn't be run as root!" 
+    exit 1
+fi
+
+# predefine
+CA=ca # Certificate authority
+
+# Params
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -ca|--certificateAuthority)
+    CA="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -cn|--commonName)
+    COMMONNAME="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -h|--help|\?)
+    usage; exit 1;
+    shift # past argument
+    ;;
+    -ip|--internalIP)
+    INTERNALIP="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -tn|--toolName)
+    TOOLNAME="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    *)    # unknown option
+    echo "Unkown parameter: $key"
+    exit 1;
+    shift # past argument
+    ;;
+esac
+done
+
+# check params
+if [ -z "$TOOLNAME" ]; then
+    echo "No tool name!"; usage
+    exit 1;
+fi
+
+if [ -z "$COMMONNAME" ]; then
+    echo "No common name!"; usage
+    exit 1;
+fi
+
+if [ -z "$INTERNALIP" ]; then
+    echo "No internal ip!"; usage
+    exit 1;
+fi
+
+# Gen
+
+helper=$(echo "$TOOLNAME" | sed -e 's/\(.*\)/\L\1/')
+openssl req -newkey rsa:4096 -sha256 -batch -nodes -days 3650 -keyout $TOOLNAME.key -out $TOOLNAME.csr -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=$TOOLNAME/CN=$COMMONNAME" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:$INTERNALIP,DNS:$helper"))
+openssl req -verify -noout -text -in $TOOLNAME.csr # Anzeigen
+
+# Sign
+openssl x509 -req -days 3650 -CAcreateserial -CA $CA.crt -CAkey $CA.key -in $TOOLNAME.csr -out $TOOLNAME.crt
+openssl x509 -noout -dates -text -in $TOOLNAME.crt # Anzeigen
+
+# Java Keystore
+openssl pkcs12 -export -chain -CAfile $CA.crt -in $TOOLNAME.crt -inkey $TOOLNAME.key -out $TOOLNAME.jks  -passout pass:changeit
+keytool -v -list -storepass changeit -keystore $TOOLNAME.jks
+
+#
+# eof ..

@@ -3,19 +3,14 @@
 #
 
 # CA erzeugen
-openssl req -new -x509 -keyout ca.key -out ca.crt -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=CA/CN=CICD"
-openssl x509 -in ca.crt -noout -text // Anzeigen
+openssl req -newkey rsa:4096 -sha256 -batch -x509 -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=CA/CN=<Common name>" -keyout ca.key -out ca.crt
+openssl x509 -noout -dates -text -in ca.crt # Anzeigen
 
 # Zertikat erzeugen
-openssl req -new -keyout https.key -out https.csr -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=<Tool>/CN=<IP>"
-openssl req -in https.csr -noout -text
-
-# Signieren durch CA
-openssl x509 -req -in https.csr -CA CICD.crt -CAkey CICD.key -CAcreateserial -out https.crt -days 3650
-openssl x509 -in https.crt -noout -text
-
-# Java Keystore export
-openssl pkcs12 -export -chain -CAfile CICD.crt -in Jenkins.crt -inkey Jenkins.key -out Jenkins.jks  -passout pass:changeit
+# Certificate Signing Request (CSR)
+# Signed Certificate (CERT, CRT, CER, PEM)
+# Java Keystore (JKS)
+./genCertificate -tn <ToolName> -cn <CommonName> -ip <InternalIP> [-ca <CertificateAuthority>]
 
 #
 # eof ..
