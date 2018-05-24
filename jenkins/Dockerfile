@@ -21,8 +21,8 @@ ADD ssl/Jenkins.jks /usr/local/etc/jenkins/Jenkins.jks
 ENV JENKINS_OPTS --httpPort=-1 --httpsPort=30080 --httpsKeyStore="/usr/local/etc/jenkins/Jenkins.jks" --httpsKeyStorePassword="changeit"
 RUN chown -R ${user}:${group} /usr/local/etc/jenkins/
 
-#ADD ssl/CICD.crt /usr/local/share/ca-certificates/
-#RUN update-ca-certificates
+ADD ssl/ca.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
 
 # basic conf
 USER ${user}
