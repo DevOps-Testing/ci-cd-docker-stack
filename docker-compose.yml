@@ -14,8 +14,9 @@ volumes:
   ci-nexus:
   ci-gogs:
 
-
 services:
+# https://hub.docker.com/r/jenkins/jenkins/
+# https://github.com/jenkinsci/docker
  ci-jenkins:
   build: ./jenkins
   image: ci-jenkins:latest
@@ -31,6 +32,7 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.10
+      network-alias: jenkins
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - ci-jenkins:/var/jenkins_home/
@@ -52,8 +54,7 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.11
-
-
+      network-alias: nexus
 
 # https://github.com/gogits/gogs/tree/master/docker
 # https://hub.docker.com/r/gogs/gogs/
@@ -68,3 +69,4 @@ services:
   networks:
     internal:
       ipv4_address: 172.16.238.12
+      network-alias: gogs
