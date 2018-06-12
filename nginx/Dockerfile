@@ -6,6 +6,9 @@ ADD ssl/Nginx.key /etc/cert/Nginx.key
 RUN chown nginx:nginx /etc/cert/Nginx.*
 RUN chmod 700 /etc/cert/Nginx.*
 
-ADD data/* /etc/nginx/
+ADD data/etc/* /etc/nginx/
+
+ADD data/www/* /data
+RUN chown -R nginx:nginx /data
 
 USER nginx

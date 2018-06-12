@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y docker-ce docker-compose
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
-ENV JENKINS_OPTS --httpPort=80
+ENV JENKINS_OPTS --httpPort=8080
 
 # basic conf
 USER ${user}
