@@ -8,11 +8,7 @@ FROM gogs/gogs
 # SQL
 RUN apk add --update sqlite
 
-# https
-ADD ssl/Gogs.crt /etc/cert/Gogs.crt
-ADD ssl/Gogs.key /etc/cert/Gogs.key
-
-# data
+# Data
 ADD data /data
 
 #
