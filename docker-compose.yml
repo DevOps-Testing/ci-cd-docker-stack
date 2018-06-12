@@ -6,8 +6,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
+        - subnet: 10.0.0.0/24
+          gateway: 10.0.0.1
 
 volumes:
   ci-jenkins:
@@ -21,9 +21,6 @@ services:
   build: ./jenkins
   image: ci-jenkins:latest
   hostname: jenkins
-  ports:
-    - "30080:30080"
-   #- "50000:50000" JNLP not needed
   depends_on:
     - ci-nexus
     - ci-gogs
@@ -31,7 +28,7 @@ services:
     - NEXUS_PORT=8081
   networks:
     internal:
-      ipv4_address: 172.16.238.10
+      ipv4_address: 10.0.0.20
       aliases:
       - jenkins
   volumes:
@@ -44,9 +41,6 @@ services:
   build: ./nexus
   image: ci-nexus:latest
   hostname: nexus
-  ports:
-    - "30081:8081" # HTTP
-    #- "30081:30081" # HTTPS
   environment:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
@@ -54,7 +48,7 @@ services:
     - ci-nexus:/nexus-data
   networks:
     internal:
-      ipv4_address: 172.16.238.11
+      ipv4_address: 10.0.0.21
       aliases:
       - nexus
 
@@ -64,12 +58,25 @@ services:
   build: ./gogs
   image: ci-gogs:latest
   hostname: gogs
-  ports:
-    - "30082:30082"
   volumes:
     - ci-gogs:/data
   networks:
     internal:
-      ipv4_address: 172.16.238.12
+      ipv4_address: 10.0.0.30
       aliases:
       - gogs
+      - git
+      
+# https://hub.docker.com/_/nginx/
+# https://github.com/nginxinc/docker-nginx/blob/f603bb3632ea6df0bc9da2179c18eb322c286298/mainline/stretch/Dockerfile
+ ci-nginx:
+  build: ./nginx
+  image: ci-nginx:latest
+  hostname: nginx
+  ports:
+    - "443:443"
+  networks:
+    internal:
+      ipv4_address: 10.0.0.10
+      aliases:
+      - nginx
