@@ -1,0 +1,17 @@
+version: '2'
+
+volumes:
+  ci-nginx:
+
+services:
+ ci-nginx:
+  build: ./nginx
+  image: ci-nginx:latest
+  hostname: nginx
+  ports:
+    - "8080:8080"
+  networks:
+    internal:
+      ipv4_address: 172.16.238.9
+      aliases:
+      - nginx
