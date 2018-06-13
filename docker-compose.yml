@@ -73,7 +73,7 @@ services:
   build: ./nginx
   image: ci-nginx:latest
   hostname: nginx
-   depends_on:
+  depends_on:
     - ci-nexus
     - ci-gogs
     - ci-jenkins
