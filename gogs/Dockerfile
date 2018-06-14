@@ -9,7 +9,7 @@ FROM gogs/gogs
 RUN apk add --update sqlite
 
 # Data
-# ADD data /data
+ADD data /data
 
 #
 # eof ..
