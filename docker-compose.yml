@@ -77,8 +77,12 @@ services:
     - ci-nexus
     - ci-gogs
     - ci-jenkins
-  ports:
+  ports
+    - "80:80"
     - "443:443"
+    - "3000:3000"
+    - "8080:8080"
+    - "8081:8081"
   networks:
     internal:
       ipv4_address: 10.0.0.10
