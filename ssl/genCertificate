@@ -94,7 +94,7 @@ fi
 # Gen
 
 helper=$(echo "$TOOLNAME" | sed -e 's/\(.*\)/\L\1/')
-openssl req -newkey rsa:4096 -sha256 -batch -nodes -days 3650 -keyout $TOOLNAME.key -out $TOOLNAME.csr -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=$TOOLNAME/CN=$COMMONNAME" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=IP:$COMMONNAME,IP:$INTERNALIP,DNS:$helper"))
+openssl req -newkey rsa:4096 -sha256 -batch -nodes -days 3650 -keyout $TOOLNAME.key -out $TOOLNAME.csr -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=$TOOLNAME/CN=$COMMONNAME" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:$COMMONNAME,DNS:$INTERNALIP,DNS:$helper"))
 openssl req -verify -noout -text -in $TOOLNAME.csr # Anzeigen
 
 # Sign
