@@ -98,7 +98,7 @@ openssl req -newkey rsa:4096 -sha256 -batch -nodes -days 3650 -keyout $TOOLNAME.
 openssl req -verify -noout -text -in $TOOLNAME.csr # Anzeigen
 
 # Sign
-openssl x509 -req -days 3650 -extfile <(printf "subjectAltName=DNS:$COMMONNAME,DNS:$INTERNALIP,DNS:$helper") -CAcreateserial -CA $CA.crt -CAkey $CA.key -in $TOOLNAME.csr -out $TOOLNAME.crt
+openssl x509 -req -days 3650 -extfile <(printf "subjectAltName=IP:$COMMONNAME,IP:$INTERNALIP,DNS:$helper") -CAcreateserial -CA $CA.crt -CAkey $CA.key -in $TOOLNAME.csr -out $TOOLNAME.crt
 openssl x509 -noout -dates -text -in $TOOLNAME.crt # Anzeigen
 
 # Java Keystore

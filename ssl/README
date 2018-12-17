@@ -12,5 +12,18 @@ openssl x509 -noout -dates -text -in ca.crt # Anzeigen
 # Java Keystore (JKS)
 ./genCertificate -tn <ToolName> -cn <CommonName> -ip <InternalIP> [-ca <CertificateAuthority>]
 
+
+openssl req -newkey rsa:4096 -sha256 -batch -x509 -nodes -days 3650 -subj "/C=DE/ST=Bayern/L=Munich/O=Example/OU=CA/CN=CICD-Dev" -keyout ca.key -out ca.crt
+
+./genCertificate -tn Jenkins -cn 160.44.205.41 -ip 172.16.238.10
+./genCertificate -tn Gogs -cn 160.44.205.41 -ip 172.16.238.12
+
+cp Jenkins.jks ../jenkins/ssl/
+cp Gogs.crt ../gogs/ssl/
+cp Gogs.key ../gogs/ssl/
+cp ca.crt ../jenkins/ssl/
+cp ca.crt ../gogs/ssl/
+
+
 #
 # eof ..
