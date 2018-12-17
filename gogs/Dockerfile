@@ -9,11 +9,14 @@ FROM gogs/gogs
 RUN apk add --update sqlite
 
 # https
-ADD ssl/Gogs.crt /etc/cert/Gogs.crt
-ADD ssl/Gogs.key /etc/cert/Gogs.key
+COPY ssl/Gogs.crt /etc/cert/Gogs.crt
+COPY ssl/Gogs.key /etc/cert/Gogs.key
+
+COPY ssl/ca.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
 
 # data
-ADD data /data
+COPY data /data
 
 #
 # eof ..

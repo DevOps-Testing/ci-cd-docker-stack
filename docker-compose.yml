@@ -13,6 +13,7 @@ volumes:
   ci-jenkins:
   ci-nexus:
   ci-gogs:
+  ci-sonarqube:
 
 services:
 # https://hub.docker.com/r/jenkins/jenkins/
@@ -73,3 +74,19 @@ services:
       ipv4_address: 172.16.238.12
       aliases:
       - gogs
+
+# https://github.com/SonarSource/docker-sonarqube
+# https://hub.docker.com/_/sonarqube/
+ ci-gogs:
+  build: ./sonarqube
+  image: ci-sonarqube:latest
+  hostname: sonarqube
+  ports:
+    - "30083:9000"
+  volumes:
+    - ci-sonarqube:/opt/sonarqube/data
+  networks:
+    internal:
+      ipv4_address: 172.16.238.13
+      aliases:
+      - sonarqube
