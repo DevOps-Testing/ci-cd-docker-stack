@@ -18,6 +18,7 @@ git:2.5.3
 git-client:1.21.0
 github:1.21.1
 github-api:1.77
+gogs-webhook:1.0.14
 groovy:2.0
 icon-shim:2.0.3
 javadoc:1.4
@@ -38,6 +39,7 @@ rebuild:1.29
 run-condition:1.2
 scm-api:1.2
 script-security:1.22
+sonar:2.8.1
 ssh-credentials:1.12
 structs:1.4
 token-macro:1.12.1
