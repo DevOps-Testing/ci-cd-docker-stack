@@ -1,4 +1,4 @@
-FROM sonatype/nexus3 
+FROM sonatype/nexus3:latest 
 
 ##############################
 # Configure Nexus            #

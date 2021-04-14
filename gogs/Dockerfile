@@ -1,4 +1,4 @@
-FROM gogs/gogs
+FROM gogs/gogs:latest
 
 ##############################
 # Configure Gogs             #

@@ -6,8 +6,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 10.0.0.0/24
-          gateway: 10.0.0.1
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
 
 volumes:
   ci-jenkins:
@@ -23,6 +23,8 @@ services:
   build: ./jenkins
   image: ci-jenkins:latest
   hostname: jenkins
+  ports:
+    - "30080:30080"
   depends_on:
     - ci-nexus
     - ci-gogs
@@ -30,7 +32,7 @@ services:
     - NEXUS_PORT=8081
   networks:
     internal:
-      ipv4_address: 10.0.0.20
+      ipv4_address: 172.16.238.10
       aliases:
       - jenkins
   volumes:
@@ -43,6 +45,8 @@ services:
   build: ./nexus
   image: ci-nexus:latest
   hostname: nexus
+  ports:
+    - "30081:8081" # HTTP
   environment:
     - JAVA_MIN_MEM=256m
     - JAVA_MAX_MEM=1200m
@@ -50,7 +54,7 @@ services:
     - ci-nexus:/nexus-data
   networks:
     internal:
-      ipv4_address: 10.0.0.21
+      ipv4_address: 172.16.238.11
       aliases:
       - nexus
 
@@ -60,11 +64,13 @@ services:
   build: ./gogs
   image: ci-gogs:latest
   hostname: gogs
+  ports:
+    - "30082:30082"
   volumes:
     - ci-gogs:/data
   networks:
     internal:
-      ipv4_address: 10.0.0.30
+      ipv4_address: 172.16.238.12
       aliases:
       - gogs
 
@@ -80,6 +86,6 @@ services:
     - ci-sonarqube:/opt/sonarqube/data
   networks:
     internal:
-      ipv4_address: 10.0.0.40
+      ipv4_address: 172.16.238.13
       aliases:
       - sonarqube     
