@@ -80,6 +80,6 @@ services:
     - ci-sonarqube:/opt/sonarqube/data
   networks:
     internal:
-      ipv4_address: 172.16.238.13
+      ipv4_address: 10.0.0.40
       aliases:
       - sonarqube     
