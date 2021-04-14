@@ -20,10 +20,12 @@ openssl req -newkey rsa:4096 -sha256 -batch -x509 -nodes -days 3650 -subj "/C=DE
 ./genCertificate -tn Jenkins -cn 160.44.205.41 -ip 172.16.238.10
 ./genCertificate -tn Gogs -cn 160.44.205.41 -ip 172.16.238.12
 
+# Benötigte Files kopieren:
 cp Jenkins.jks ../jenkins/ssl/
+cp ca.crt ../jenkins/ssl/
+
 cp Gogs.crt ../gogs/ssl/
 cp Gogs.key ../gogs/ssl/
-cp ca.crt ../jenkins/ssl/
 cp ca.crt ../gogs/ssl/
 
 

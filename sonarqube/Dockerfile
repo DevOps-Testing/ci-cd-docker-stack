@@ -1,4 +1,4 @@
-FROM sonarqube:7.4-community
+FROM sonarqube:lts
 
 ##############################
 # Configure Sonarqube        #
@@ -6,8 +6,8 @@ FROM sonarqube:7.4-community
 
 
 # https
-#ADD ssl/Gogs.crt /etc/cert/Gogs.crt
-#ADD ssl/Gogs.key /etc/cert/Gogs.key
+#ADD ssl/Sonarqube.crt /etc/cert/Sonarqube.crt
+#ADD ssl/Sonarqube.key /etc/cert/Sonarqube.key
 
 # data
 #ADD data /data
