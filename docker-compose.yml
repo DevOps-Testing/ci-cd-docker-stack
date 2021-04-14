@@ -13,6 +13,8 @@ volumes:
   ci-jenkins:
   ci-nexus:
   ci-gogs:
+  ci-sonarqube:
+  ci-mavenrepo:
 
 services:
 # https://hub.docker.com/r/jenkins/jenkins/
@@ -65,26 +67,19 @@ services:
       ipv4_address: 10.0.0.30
       aliases:
       - gogs
-      - git
-      
-# https://hub.docker.com/_/nginx/
-# https://github.com/nginxinc/docker-nginx/blob/f603bb3632ea6df0bc9da2179c18eb322c286298/mainline/stretch/Dockerfile
- ci-nginx:
-  build: ./nginx
-  image: ci-nginx:latest
-  hostname: nginx
-  depends_on:
-    - ci-nexus
-    - ci-gogs
-    - ci-jenkins
+
+# https://github.com/SonarSource/docker-sonarqube
+# https://hub.docker.com/_/sonarqube/
+ ci-sonarqube:
+  build: ./sonarqube
+  image: ci-sonarqube:latest
+  hostname: sonarqube
   ports:
-    - "80:80"
-    - "443:443"
-    - "3000:3000"
-    - "8080:8080"
-    - "8081:8081"
+    - "30083:9000"
+  volumes:
+    - ci-sonarqube:/opt/sonarqube/data
   networks:
     internal:
-      ipv4_address: 10.0.0.10
+      ipv4_address: 172.16.238.13
       aliases:
-      - nginx
+      - sonarqube     

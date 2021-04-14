@@ -4,12 +4,16 @@ FROM gogs/gogs
 # Configure Gogs             #
 ##############################
 
+# https
+COPY ssl/Gogs.crt /etc/cert/Gogs.crt
+COPY ssl/Gogs.key /etc/cert/Gogs.key
+COPY ssl/ca.crt /usr/local/share/ca-certificates/
 
-# SQL
-RUN apk add --update sqlite
+RUN apk add --update sqlite \
+	&& update-ca-certificates 2>/dev/null || true
 
-# Data
-ADD data /data
+# data
+COPY data /data
 
 #
 # eof ..
