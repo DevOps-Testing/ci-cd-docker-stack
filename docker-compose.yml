@@ -6,7 +6,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.238.0/24
+          subnet: 172.16.238.0/24
           gateway: 172.16.238.1
 
 volumes:
@@ -14,7 +14,7 @@ volumes:
   ci-nexus:
   ci-gogs:
   ci-sonarqube:
-  ci-mavenrepo:
+  # ci-mavenrepo:
 
 services:
 # https://hub.docker.com/r/jenkins/jenkins/
