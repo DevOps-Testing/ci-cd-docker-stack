@@ -1,5 +1,9 @@
 FROM sonarqube:lts
+USER root
+COPY ssl/ca.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
 
+USER sonarqube
 ##############################
 # Configure Sonarqube        #
 ##############################
