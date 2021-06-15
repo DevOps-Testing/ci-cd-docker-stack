@@ -32,5 +32,7 @@ cp ca.crt ../gogs/ssl/
 
 cp Nexus.jks ../nexus/ssl/
 
+cp ca.crt ../sonarqube/ssl/
+
 #
 # eof ..
