@@ -1,0 +1,8 @@
+caffeine-api:2.9.1-23.v51c4e2c879c8
+display-url-api:2.3.5
+jjwt-api:0.11.2-9.c8b45b8bb173
+apache-httpcomponents-client-4-api:4.5.13-1.0
+bootstrap4-api:4.6.0-3
+bootstrap5-api:5.0.1-2
+handy-uri-templates-2-api:2.1.8-1.0
+font-awesome-api:5.15.3-3
